@@ -237,6 +237,16 @@ FROM growth_ratio
 WHERE last_year_sale IS NOT NULL AND year <> EXTRACT(YEAR FROM CURRENT_DATE);
 ```
 
-## Conclusion  
+## 👤 Author
 
-This project is a **real-world SQL case study**, ideal for data professionals looking to strengthen SQL skills and work with large datasets. It demonstrates **data-driven decision-making** and query optimization for **business analytics**. 
+**Abiskar Shiwakoti**
+
+Aspiring Data Analyst | SQL | Data Analytics
+
+GitHub: https://github.com/ASHIWAKOTI-eng 
+LinkedIn: (https://www.linkedin.com/in/a-shiwakoti-b04702238/)
+---
+
+## ⭐ Project Purpose
+
+This project was created as part of a data analytics portfolio to demonstrate practical SQL skills used in real business environments.

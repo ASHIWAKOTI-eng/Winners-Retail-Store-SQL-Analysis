@@ -1,0 +1,51 @@
+EmployeeID,FirstName,LastName,Email,Phone,JobTitle,Salary,HireDate,StoreID
+1,Evelyn,Garcia,evelyn.garcia708@yahoo.com,778-460-5071,Cashier,54851,2025-04-29,1
+2,Michael,Miller,michael.miller657@yahoo.com,778-489-3326,Store Manager,77181,2024-11-15,6
+3,Ava,Martinez,ava.martinez80@gmail.com,778-418-9776,Store Manager,42813,2021-08-01,1
+4,James,Moore,james.moore116@hotmail.com,778-492-9360,Cashier,67493,2023-08-23,1
+5,Henry,Martinez,henry.martinez405@hotmail.com,778-499-3838,Inventory Specialist,44215,2020-06-21,3
+6,Olivia,Miller,olivia.miller32@hotmail.com,778-438-2746,Sales Associate,60986,2021-11-15,3
+7,Evelyn,Smith,evelyn.smith866@outlook.com,778-419-2466,Sales Associate,81204,2022-02-20,6
+8,Henry,Garcia,henry.garcia47@outlook.com,778-471-2590,Store Manager,63101,2022-10-15,6
+9,Oliver,Jackson,oliver.jackson598@outlook.com,778-417-2061,Cashier,38971,2022-08-17,2
+10,Owen,Lopez,owen.lopez373@icloud.com,778-432-3266,Cashier,54491,2021-06-25,3
+11,William,Taylor,william.taylor680@gmail.com,778-441-3716,Cashier,62954,2025-04-19,2
+12,Daniel,Miller,daniel.miller908@outlook.com,778-459-6985,Sales Associate,80036,2020-05-06,3
+13,Sebastian,Smith,sebastian.smith52@gmail.com,778-494-7183,Cashier,53388,2022-06-23,1
+14,Mia,Anderson,mia.anderson500@gmail.com,778-424-8535,Assistant Manager,84630,2020-02-13,1
+15,Ava,Brown,ava.brown497@hotmail.com,778-432-4780,Inventory Specialist,66853,2024-12-15,1
+16,Benjamin,Williams,benjamin.williams273@yahoo.com,778-466-8686,Sales Associate,60187,2019-06-01,1
+17,Oliver,Taylor,oliver.taylor228@hotmail.com,778-437-7163,Store Manager,41925,2020-10-17,5
+18,Noah,Davis,noah.davis535@outlook.com,778-475-6181,Sales Associate,44651,2024-09-14,4
+19,Henry,Anderson,henry.anderson947@hotmail.com,778-426-2219,Inventory Specialist,79353,2022-01-27,1
+20,Benjamin,Rodriguez,benjamin.rodriguez679@yahoo.com,778-418-2961,Inventory Specialist,69560,2022-10-02,2
+21,Charlotte,Smith,charlotte.smith643@icloud.com,778-413-8705,Store Manager,73201,2023-01-05,4
+22,Matthew,Martin,matthew.martin143@yahoo.com,778-428-7346,Cashier,40736,2021-07-06,6
+23,Jack,Garcia,jack.garcia717@outlook.com,778-412-8511,Store Manager,67450,2023-03-16,1
+24,Alexander,Anderson,alexander.anderson999@outlook.com,778-434-5988,Cashier,76227,2023-05-27,1
+25,Ava,Smith,ava.smith696@outlook.com,778-411-6896,Inventory Specialist,53276,2024-11-24,4
+26,Emma,Taylor,emma.taylor874@hotmail.com,778-496-4477,Assistant Manager,52180,2023-06-24,4
+27,Benjamin,Martinez,benjamin.martinez804@hotmail.com,778-444-4707,Cashier,40081,2021-01-27,2
+28,Olivia,Wilson,olivia.wilson685@gmail.com,778-482-7126,Sales Associate,53625,2025-08-20,2
+29,Evelyn,Rodriguez,evelyn.rodriguez622@hotmail.com,778-470-9976,Inventory Specialist,47023,2022-09-16,2
+30,Amelia,Brown,amelia.brown281@hotmail.com,778-429-3245,Assistant Manager,46864,2022-01-13,1
+31,William,Davis,william.davis433@outlook.com,778-420-8412,Inventory Specialist,54592,2023-02-19,2
+32,David,Rodriguez,david.rodriguez991@hotmail.com,778-422-1845,Inventory Specialist,44822,2025-06-10,3
+33,Oliver,Martinez,oliver.martinez772@outlook.com,778-427-7882,Store Manager,72693,2021-05-30,3
+34,Samuel,Taylor,samuel.taylor598@gmail.com,778-467-4993,Inventory Specialist,81130,2019-09-09,5
+35,Matthew,Lopez,matthew.lopez921@icloud.com,778-481-4156,Inventory Specialist,42982,2022-10-18,5
+36,Ava,Garcia,ava.garcia881@yahoo.com,778-492-4875,Inventory Specialist,62003,2019-10-06,3
+37,Matthew,Williams,matthew.williams718@gmail.com,778-489-8728,Sales Associate,82047,2021-12-16,1
+38,Isabella,Thomas,isabella.thomas349@outlook.com,778-469-6312,Sales Associate,66222,2024-08-21,2
+39,Amelia,Wilson,amelia.wilson411@outlook.com,778-439-7075,Cashier,62909,2020-02-04,3
+40,James,Davis,james.davis656@outlook.com,778-444-2852,Store Manager,71415,2024-02-10,4
+41,Evelyn,Wilson,evelyn.wilson662@gmail.com,778-470-8440,Cashier,75811,2019-07-20,3
+42,Emma,Wilson,emma.wilson323@outlook.com,778-471-1288,Sales Associate,63823,2021-06-28,1
+43,Daniel,Martinez,daniel.martinez856@icloud.com,778-492-4342,Sales Associate,84195,2023-06-08,3
+44,Joseph,Martinez,joseph.martinez665@yahoo.com,778-430-2060,Assistant Manager,67813,2025-02-15,2
+45,Jack,Smith,jack.smith610@icloud.com,778-462-5463,Store Manager,42590,2025-08-01,2
+46,Oliver,Davis,oliver.davis5@outlook.com,778-439-3859,Cashier,84602,2022-12-26,1
+47,Liam,Brown,liam.brown85@gmail.com,778-435-3434,Inventory Specialist,59977,2024-10-24,5
+48,Emma,Hernandez,emma.hernandez299@hotmail.com,778-471-5235,Cashier,41603,2024-09-11,3
+49,William,Rodriguez,william.rodriguez94@gmail.com,778-489-1857,Cashier,46635,2021-12-13,3
+50,Charlotte,Thomas,charlotte.thomas145@outlook.com,778-487-1839,Sales Associate,83392,2020-11-23,4

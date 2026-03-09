@@ -5,27 +5,93 @@
 # ![Winners Logo](https://github.com/ASHIWAKOTI-eng/Winners-Retail-Store-SQL-Analysis/blob/main/images/Winners-9-800x800.jpg)  
 # Winners Retail Sales SQL Project  
 
-## Project Overview  
+## 📌 Project Overview
+This project demonstrates advanced SQL analytics using a simulated retail business database.  
+The goal was to design a relational database, load realistic datasets, and answer real-world business questions using SQL.
 
-This project analyzes over **1 million rows** of Apple retail sales data using **advanced SQL techniques**. It covers key insights on **sales trends, product performance, store analysis, and warranty claims** across various Apple locations. The project demonstrates SQL proficiency in **joins, window functions, aggregations, and query optimization** for large-scale datasets.  
+The project covers:
 
-## Database Schema  
+- Database schema design
+- Data cleaning & loading
+- Complex joins
+- Aggregations & KPIs
+- Window functions
+- Business analytics queries
 
-The project includes five main tables:  
+---
 
-- **stores**: Store details (location, country, store name).  
-- **category**: Product categories.  
-- **products**: Product details (name, category, price, launch date).  
-- **sales**: Sales transactions (date, store, product, quantity).  
-- **warranty**: Warranty claims and repair status.  
+## 🧱 Database Schema
 
-## Key SQL Concepts Covered  
+The database consists of the following tables:
 
-✔ Advanced Joins & Aggregations  
-✔ Window Functions (RANK, ROW_NUMBER)  
-✔ Subqueries & CTEs  
-✔ Query Performance Optimization  
-✔ Time-Based Sales Analysis  
+- **Customers**
+- **Orders**
+- **Order_Details**
+- **Products**
+- **Categories**
+- **Employees**
+- **Stores**
+
+### Entity Relationship Overview
+(Add ER diagram screenshot here later if you create one)
+
+---
+
+## ⚙️ Technologies Used
+
+- MySQL
+- MySQL Workbench
+- Excel (Data preparation)
+- Git & GitHub
+
+---
+
+## 📊 Business Questions Solved
+
+### Customer Analytics
+- Customers with highest lifetime spending
+- Customers visiting multiple stores
+- Percentage of one-time buyers
+- Average order value per customer
+
+### Product Analytics
+- Best-selling products
+- Revenue per category
+- Products never sold
+- Monthly top-selling products
+
+### Employee Performance
+- Revenue handled per employee
+- Employees serving most customers
+- Top-performing employees
+
+### Sales Trends
+- Monthly revenue trends
+- Store performance by month
+- Daily order averages
+- Peak revenue periods
+
+---
+
+## 🧠 Advanced SQL Concepts Demonstrated
+
+✔ Multi-table JOINs  
+✔ CTEs (Common Table Expressions)  
+✔ Window Functions (`RANK`, `AVG OVER`)  
+✔ Aggregations & Grouping  
+✔ Subqueries  
+✔ Business KPI calculations  
+
+---
+
+## 📈 Example Insights
+
+- Identified top revenue-generating product categories
+- Measured employee sales performance
+- Analyzed customer purchasing behavior
+- Tracked seasonal revenue patterns
+
+---
 
 ## Sample Business Questions  
 

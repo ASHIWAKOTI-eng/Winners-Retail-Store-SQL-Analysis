@@ -9,7 +9,7 @@
 
 ## 📌 Project Overview
 This project demonstrates advanced SQL analytics using a simulated retail business database.  
-The goal was to design a relational database, load realistic datasets, and answer real-world business questions using SQL.
+The goal was to analyze the sales and operations of a retail store chain to identify trends, high-performing products, top customers, and employee performance using SQL.
 
 The project covers:
 

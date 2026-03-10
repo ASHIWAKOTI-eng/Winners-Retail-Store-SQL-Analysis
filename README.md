@@ -33,7 +33,10 @@ The database consists of the following tables:
 - **Stores**
 
 ### Entity Relationship Overview
-(Add ER diagram screenshot here later if you create one)
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/ASHIWAKOTI-eng/Winners-Retail-Store-SQL-Analysis/main/images/ER%20Diagram.png" width="800">
+</p>
 
 ---
 

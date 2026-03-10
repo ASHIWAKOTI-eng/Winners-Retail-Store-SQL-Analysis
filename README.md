@@ -203,7 +203,8 @@ FROM
     products p ON c.categoryID = p.categoryID
         JOIN
     order_details od ON p.productID = od.productID
-GROUP BY c.categoryID , categoryname;```
+GROUP BY c.categoryID , categoryname;
+```
 
 #### **Problem 9:** Identify the top 5 best-selling products by quantity sold.
 ```sql
@@ -388,7 +389,7 @@ FROM
 GROUP BY od.productID;
 ```
 
-#### **Problem 20:**Identify products with total sales revenue greater than the average product revenue.
+#### **Problem 20:** Identify products with total sales revenue greater than the average product revenue.
 ```sql
 WITH total_revenue AS (
 	SELECT
@@ -407,7 +408,7 @@ FROM total_revenue
 WHERE product_revenue > avg_revenue;
 ```
 
-#### **Problem 21:**Calculate total sales handled by each employee.
+#### **Problem 21:** Calculate total sales handled by each employee.
 ```sql
 SELECT 
     o.employeeID,
@@ -422,7 +423,7 @@ FROM
 GROUP BY e.employeeID;
 ```
 
-#### **Problem 22:**Identify the top 5 employees who generated the highest revenue.
+#### **Problem 22:** Identify the top 5 employees who generated the highest revenue.
 ```sql
 SELECT 
     o.employeeID,
@@ -439,7 +440,7 @@ ORDER BY SUM(o.totalamount) DESC
 LIMIT 5;
 ```
 
-#### **Problem 23:**Determine the average order value handled by each employee.
+#### **Problem 23:** Determine the average order value handled by each employee.
 ```sql
 SELECT 
     e.employeeID,
@@ -452,7 +453,7 @@ FROM
 GROUP BY e.employeeID;
 ```
 
-#### **Problem 24:**Find employees who handled orders for more than 40 unique customers.
+#### **Problem 24:** Find employees who handled orders for more than 40 unique customers.
 ```sql
 SELECT 
     o.employeeID,
@@ -466,7 +467,7 @@ GROUP BY o.employeeID , employee_name
 HAVING unique_customers > 40;
 ```
 
-#### **Problem 25:**Identify the employee with the highest total quantity of products sold.
+#### **Problem 25:** Identify the employee with the highest total quantity of products sold.
 ```sql
 WITH emp_units_sold AS(
     SELECT 
@@ -490,7 +491,7 @@ FROM emp_units_sold
 WHERE units_sold = (SELECT max(units_sold) FROM emp_units_sold);
 ```
 
-#### **Problem 26:**Calculate monthly revenue trends across all stores. 
+#### **Problem 26:** Calculate monthly revenue trends across all stores. 
 ```sql
 SELECT 
     YEAR(orderdate) AS sale_year,
@@ -502,7 +503,7 @@ GROUP BY sale_year , sale_month
 ORDER BY sale_year , sale_month;
 ```
 
-#### **Problem 27:**Determine the store with the highest sales for each month. 
+#### **Problem 27:** Determine the store with the highest sales for each month. 
 ```sql
 WITH monthly_totals AS(	
     SELECT 
@@ -532,7 +533,7 @@ FROM monthly_totals
 WHERE monthly_rank = 1;
 ```
 
-#### **Problem 28:**Identify the top selling product each month. 
+#### **Problem 28:** Identify the top selling product each month. 
 ```sql
 WITH monthly_sales_quantity AS(	
     SELECT 
@@ -563,7 +564,7 @@ FROM monthly_sales_quantity
 WHERE monthly_rank = 1;
 ```
 
-#### **Problem 29:**Calculate the daily average number of orders. 
+#### **Problem 29:** Calculate the daily average number of orders. 
 ```sql
 WITH daily_order_count AS(	
     SELECT 
@@ -578,7 +579,7 @@ SELECT
 FROM daily_order_count;
 ```
 
-#### **Problem 30:**Find the month with the highest total revenue. 
+#### **Problem 30:** Find the month with the highest total revenue. 
 ```sql
 WITH monthly_revenue AS(	
     SELECT 

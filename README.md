@@ -248,102 +248,7 @@ FROM
 GROUP BY productid;
 ```
 
-## 👥 Customer Analytics
-#### **Problem 11:** Identify customers who have placed more than 5 orders.
-#### 👉 Purpose: Identify repeat customers and measure customer loyalty.
-```sql
-SELECT 
-    c.customerid,
-    CONCAT(c.firstname, ' ', c.lastname) AS customername,
-    COUNT(o.orderid) AS order_count
-FROM
-    orders o
-        JOIN
-    customers c ON o.customerid = c.customerid
-GROUP BY c.customerid , customername
-HAVING order_count > 5;
-```
-
-#### **Problem 12:** Find the top 10 customers with the highest lifetime spending.
-#### 👉 Purpose: Recognize customers contributing the most long-term revenue.
-```sql
-SELECT 
-    c.customerid,
-    CONCAT(c.firstname, ' ', c.lastname) AS customername,
-    COUNT(o.orderid) order_count,
-    SUM(totalamount) AS lifetime_spending
-FROM
-    customers c
-        JOIN
-    orders o ON c.customerId = o.customerid
-GROUP BY c.customerid, customername
-ORDER BY lifetime_spending DESC
-LIMIT 10;
-```
-
-#### **Problem 13:** Calculate the average order value for each customer.
-#### 👉 Purpose: Understand customer purchasing power and spending behavior.
-```sql
-WITH customer_totals AS
-	(SELECT 
-		c.customerid,
-		CONCAT(c.firstname, ' ', c.lastname) AS customername,
-		COUNT(o.orderid) order_count,
-		SUM(totalamount) AS lifetime_spending
-	FROM
-		customers c
-			JOIN
-		orders o ON c.customerId = o.customerid
-	GROUP BY c.customerid
-)
-
-SELECT 
-	customerid, 
-	customername,
-	order_count, 
-	lifetime_spending,
-	lifetime_spending/ order_count AS avg_order_value
-from customer_totals;
-```
-
-#### **Problem 14:** List customers who have placed orders in more than one store.
-#### 👉 Purpose: Identify cross-store shoppers, indicating strong brand engagement.
-```sql
-SELECT 
-    c.customerid,
-    c.firstname,
-    c.lastname,
-    COUNT(DISTINCT o.storeid) AS stores_visited
-FROM
-    customers c
-        JOIN
-    orders o ON c.customerid = o.customerid
-GROUP BY c.customerid , c.firstname , c.lastname
-HAVING stores_visited > 1;
-```
-
-#### **Problem 15:** Calculate the percentage of customers who have placed only one order.
-#### 👉 Purpose: Measure customer retention vs churn.
-```sql
-WITH customer_summary AS(
-	SELECT 
-		c.customerid,
-		COUNT(o.orderid) AS order_count
-	FROM
-		customers c
-			LEFT JOIN
-		orders o ON c.customerid = o.customerid
-	GROUP BY c.customerid
-	HAVING order_count = 1)
-
-    
-SELECT 
-	COUNT(customerid)*100/ (SELECT COUNT(customerid) FROM customers)
-	AS percent_one_time_orderers 
-FROM customer_summary;
-```
-
-#### **Problem 16:** Identify the top 3 revenue-generating products in each category.
+#### **Problem 11:** Identify the top 3 revenue-generating products in each category.
 #### 👉 Purpose:
 ```sql
 WITH category_totals AS(	
@@ -369,7 +274,7 @@ SELECT * FROM category_totals
 WHERE rank_in_cat <=3;
 ```
 
-#### **Problem 17:** Find products that have never been sold.
+#### **Problem 12:** Find products that have never been sold.
 #### 👉 Purpose:
 ```sql
 SELECT 
@@ -384,7 +289,7 @@ GROUP BY p.productid , p.productname
 having order_count= 0;
 ```
 
-#### **Problem 18:** Calculate total revenue generated per product.
+#### **Problem 13:** Calculate total revenue generated per product.
 #### 👉 Purpose:
 ```sql
 SELECT 
@@ -400,7 +305,7 @@ FROM
 GROUP BY p.productid , p.productname;
 ```
 
-#### **Problem 19:** Determine the average quantity sold per order for each product.
+#### **Problem 14:** Determine the average quantity sold per order for each product.
 #### 👉 Purpose:
 ```sql
 SELECT 
@@ -415,7 +320,7 @@ FROM
 GROUP BY od.productID;
 ```
 
-#### **Problem 20:** Identify products with total sales revenue greater than the average product revenue.
+#### **Problem 15:** Identify products with total sales revenue greater than the average product revenue.
 #### 👉 Purpose:
 ```sql
 WITH total_revenue AS (
@@ -434,6 +339,103 @@ WITH total_revenue AS (
 FROM total_revenue
 WHERE product_revenue > avg_revenue;
 ```
+
+
+## 👥 Customer Analytics
+#### **Problem 16:** Identify customers who have placed more than 5 orders.
+#### 👉 Purpose: Identify repeat customers and measure customer loyalty.
+```sql
+SELECT 
+    c.customerid,
+    CONCAT(c.firstname, ' ', c.lastname) AS customername,
+    COUNT(o.orderid) AS order_count
+FROM
+    orders o
+        JOIN
+    customers c ON o.customerid = c.customerid
+GROUP BY c.customerid , customername
+HAVING order_count > 5;
+```
+
+#### **Problem 17:** Find the top 10 customers with the highest lifetime spending.
+#### 👉 Purpose: Recognize customers contributing the most long-term revenue.
+```sql
+SELECT 
+    c.customerid,
+    CONCAT(c.firstname, ' ', c.lastname) AS customername,
+    COUNT(o.orderid) order_count,
+    SUM(totalamount) AS lifetime_spending
+FROM
+    customers c
+        JOIN
+    orders o ON c.customerId = o.customerid
+GROUP BY c.customerid, customername
+ORDER BY lifetime_spending DESC
+LIMIT 10;
+```
+
+#### **Problem 18:** Calculate the average order value for each customer.
+#### 👉 Purpose: Understand customer purchasing power and spending behavior.
+```sql
+WITH customer_totals AS
+	(SELECT 
+		c.customerid,
+		CONCAT(c.firstname, ' ', c.lastname) AS customername,
+		COUNT(o.orderid) order_count,
+		SUM(totalamount) AS lifetime_spending
+	FROM
+		customers c
+			JOIN
+		orders o ON c.customerId = o.customerid
+	GROUP BY c.customerid
+)
+
+SELECT 
+	customerid, 
+	customername,
+	order_count, 
+	lifetime_spending,
+	lifetime_spending/ order_count AS avg_order_value
+from customer_totals;
+```
+
+#### **Problem 19:** List customers who have placed orders in more than one store.
+#### 👉 Purpose: Identify cross-store shoppers, indicating strong brand engagement.
+```sql
+SELECT 
+    c.customerid,
+    c.firstname,
+    c.lastname,
+    COUNT(DISTINCT o.storeid) AS stores_visited
+FROM
+    customers c
+        JOIN
+    orders o ON c.customerid = o.customerid
+GROUP BY c.customerid , c.firstname , c.lastname
+HAVING stores_visited > 1;
+```
+
+#### **Problem 20:** Calculate the percentage of customers who have placed only one order.
+#### 👉 Purpose: Measure customer retention vs churn.
+```sql
+WITH customer_summary AS(
+	SELECT 
+		c.customerid,
+		COUNT(o.orderid) AS order_count
+	FROM
+		customers c
+			LEFT JOIN
+		orders o ON c.customerid = o.customerid
+	GROUP BY c.customerid
+	HAVING order_count = 1)
+
+    
+SELECT 
+	COUNT(customerid)*100/ (SELECT COUNT(customerid) FROM customers)
+	AS percent_one_time_orderers 
+FROM customer_summary;
+```
+
 
 ## 👨‍💼 Employee Performance Analytics
 #### **Problem 21:** Calculate total sales handled by each employee.

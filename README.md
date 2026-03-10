@@ -93,148 +93,513 @@ The database consists of the following tables:
 
 ---
 
-## Sample Business Questions  
+## Solving Real-World Business Problems with SQL
 
-### Solving Real-World Business Problems with SQL  
+### Sample Business Questions    
 
-#### **Problem 1:** How many warranty claims were filed in 2020?
+#### **Problem 1:** List all orders along with the customer name, store name, and employee who handled the order.
 ```sql
-SELECT
-    COUNT(*) AS warranty_claims_2020
-FROM warranty
-WHERE EXTRACT(YEAR FROM claim_date) = 2020;
-```
-
-#### **Problem 2:** For each store, identify the best-selling day based on the highest quantity sold.
-```sql
-SELECT *
-FROM (
-    SELECT
-        store_id,
-        TO_CHAR(sale_date, 'Day') AS day_name,
-        SUM(quantity) AS total_units_sold,
-        RANK() OVER(PARTITION BY store_id ORDER BY SUM(quantity) DESC) AS rank
-    FROM sales
-    GROUP BY 1, 2
-) AS ranked_sales
-WHERE rank = 1;
-```
-
-#### **Problem 3:** Identify the least selling product in each country for each year based on total units sold.
-```sql
-WITH product_rank AS (
-    SELECT
-        st.country,
-        p.product_name,
-        SUM(s.quantity) AS total_qty_sold,
-        RANK() OVER(PARTITION BY st.country ORDER BY SUM(s.quantity)) AS rank
-    FROM sales AS s
-    JOIN stores AS st ON s.store_id = st.store_id
-    JOIN products AS p ON s.product_id = p.product_id
-    GROUP BY 1, 2
-)
-SELECT *
-FROM product_rank
-WHERE rank = 1;
-```
-
-#### **Problem 4:** Calculate how many warranty claims were filed within 180 days of a product sale.
-```sql
-SELECT
-    COUNT(*)
-FROM warranty AS w
-LEFT JOIN sales AS s ON s.sale_id = w.sale_id
-WHERE w.claim_date - sale_date <= 180;
-```
-
-#### **Problem 5:** Determine how many warranty claims were filed for products launched in the last two years.
-```sql
-SELECT
-    p.product_name,
-    COUNT(w.claim_id) AS no_claim,
-    COUNT(s.sale_id)
-FROM warranty AS w
-RIGHT JOIN sales AS s ON s.sale_id = w.sale_id
-JOIN products AS p ON p.product_id = s.product_id
-WHERE p.launch_date >= CURRENT_DATE - INTERVAL '2 years'
-GROUP BY 1
-HAVING COUNT(w.claim_id) > 0;
-```
-
-#### **Problem 6:** List the months in the last three years where sales exceeded 5,000 units in the USA.
-```sql
-SELECT
-    TO_CHAR(sale_date, 'MM-YYYY') AS month,
-    SUM(s.quantity) AS total_unit_sold
-FROM sales AS s
-JOIN stores AS st ON s.store_id = st.store_id
-WHERE st.country = 'USA' AND s.sale_date >= CURRENT_DATE - INTERVAL '3 year'
-GROUP BY 1
-HAVING SUM(s.quantity) > 5000;
-```
-
-#### **Problem 7:** Identify the product category with the most warranty claims filed in the last two years.
-```sql
-SELECT
-    c.category_name,
-    COUNT(w.claim_id) AS total_claims
-FROM warranty AS w
-LEFT JOIN sales AS s ON w.sale_id = s.sale_id
-JOIN products AS p ON p.product_id = s.product_id
-JOIN category AS c ON c.category_id = p.category_id
-WHERE w.claim_date >= CURRENT_DATE - INTERVAL '2 year'
-GROUP BY 1;
-```
-
-#### **Problem 8:** Determine the percentage chance of receiving warranty claims after each purchase for each country.
-```sql
-SELECT
-    country,
-    total_unit_sold,
-    total_claim,
-    COALESCE(total_claim::numeric/total_unit_sold::numeric * 100, 0) AS risk
+SELECT 
+    o.OrderID,
+    CONCAT(c.FirstName, ' ', c.LastName) AS CustomerName,
+    s.StoreName,
+    CONCAT(e.FirstName, ' ', e.LastName) AS EmployeeName
 FROM
-(SELECT
-    st.country,
-    SUM(s.quantity) AS total_unit_sold,
-    COUNT(w.claim_id) AS total_claim
-FROM sales AS s
-JOIN stores AS st ON s.store_id = st.store_id
-LEFT JOIN warranty AS w ON w.sale_id = s.sale_id
-GROUP BY 1) t1
-ORDER BY 4 DESC;
+    orders o
+        JOIN
+    customers c ON o.CustomerID = c.CustomerID
+        JOIN
+    employees e ON o.EmployeeID = e.EmployeeID
+        JOIN
+    stores s ON o.StoreID = s.StoreID;
 ```
 
-#### **Problem 9:** Analyze the year-by-year growth ratio for each store.
+#### **Problem 2:** Show each product sold along with its category and the total quantity sold.
 ```sql
-WITH yearly_sales AS (
-    SELECT
-        s.store_id,
-        st.store_name,
-        EXTRACT(YEAR FROM sale_date) AS year,
-        SUM(s.quantity * p.price) AS total_sale
-    FROM sales AS s
-    JOIN products AS p ON s.product_id = p.product_id
-    JOIN stores AS st ON st.store_id = s.store_id
-    GROUP BY 1, 2, 3
-    ORDER BY 2, 3
-),
-growth_ratio AS (
-    SELECT
-        store_name,
-        year,
-        LAG(total_sale, 1) OVER(PARTITION BY store_name ORDER BY year) AS last_year_sale,
-        total_sale AS current_year_sale
-    FROM yearly_sales
+SELECT 
+    p.ProductName,
+    p.CategoryID,
+    SUM(od.Quantity) AS Total_Quantity_sold,
+    c.CategoryName
+FROM
+    order_details od
+        JOIN
+    products p ON od.ProductID = p.ProductID
+        JOIN
+    categories c ON p.CategoryID = c.CategoryID
+GROUP BY p.ProductID;
+```
+
+#### **Problem 3:** List all customers who have placed at least one order, showing their orders and total spent.
+```sql
+SELECT 
+    o.CustomerID,
+    CONCAT(c.FirstName, ' ', c.LastName) AS CustomerName,
+    SUM(o.TotalAmount) AS Total_spent
+FROM
+    orders o
+        JOIN
+    customers c ON o.CustomerID = c.CustomerID
+GROUP BY c.CustomerID;
+```
+
+#### **Problem 4:** Identify orders where the employee’s store is different from the store where the order was placed.
+```sql
+SELECT 
+    o.OrderID,
+    o.EmployeeID,
+    o.StoreID AS Order_Store,
+    e.StoreID AS Employee_store
+FROM
+    orders o
+        JOIN
+    employees e ON o.EmployeeID = e.EmployeeID
+WHERE
+    o.storeID != e.StoreID;
+```
+
+#### **Problem 5:** Show the top 10 customers by total spending across all orders.
+```sql
+SELECT 
+    CONCAT(c.FirstName, ' ', c.LastName) AS CustomerName,
+    o.customerID,
+    SUM(o.totalamount) AS total_spent
+FROM
+    orders o
+        JOIN
+    customers c ON o.customerID = c.customerID
+GROUP BY o.customerID , customername
+ORDER BY total_spent DESC
+LIMIT 10;
+```
+
+#### **Problem 6:** Calculate total revenue generated by each store.
+```sql
+SELECT 
+    storeID, SUM(totalamount) AS total_revenue
+FROM
+    orders
+GROUP BY storeID;
+```
+
+#### **Problem 7:** Find the average order value per store.
+```sql
+SELECT 
+    storeID, AVG(totalamount) AS avg_order_value
+FROM
+    orders
+GROUP BY storeID;
+```
+
+#### **Problem 8:** Determine total revenue per product category.
+```sql
+SELECT 
+    c.categoryID,
+    CategoryName,
+    SUM(quantity * unitprice) AS category_revenue
+FROM
+    categories c
+        JOIN
+    products p ON c.categoryID = p.categoryID
+        JOIN
+    order_details od ON p.productID = od.productID
+GROUP BY c.categoryID , categoryname;```
+
+#### **Problem 9:** Identify the top 5 best-selling products by quantity sold.
+```sql
+SELECT 
+    p.productid,
+    p.productname,
+    p.categoryid,
+    SUM(quantity) AS total_quantity
+FROM
+    products p
+        JOIN
+    order_details od ON p.productid = od.productid
+GROUP BY p.productid , p.productname , p.categoryid
+ORDER BY total_quantity DESC LIMIT 5;
+```
+
+#### **Problem 10:** Calculate the average discount applied per product across all orders.
+```sql
+SELECT 
+    productid,
+    SUM(quantity) AS total_product_sold,
+    sum(discount*quantity)/sum(quantity) AS avg_discount_per_product
+FROM
+    order_details
+GROUP BY productid;
+```
+
+#### **Problem 11:** Identify customers who have placed more than 5 orders.
+```sql
+SELECT 
+    c.customerid,
+    CONCAT(c.firstname, ' ', c.lastname) AS customername,
+    COUNT(o.orderid) AS order_count
+FROM
+    orders o
+        JOIN
+    customers c ON o.customerid = c.customerid
+GROUP BY c.customerid , customername
+HAVING order_count > 5;
+```
+
+#### **Problem 12:** Find the top 10 customers with the highest lifetime spending.
+```sql
+SELECT 
+    c.customerid,
+    CONCAT(c.firstname, ' ', c.lastname) AS customername,
+    COUNT(o.orderid) order_count,
+    SUM(totalamount) AS lifetime_spending
+FROM
+    customers c
+        JOIN
+    orders o ON c.customerId = o.customerid
+GROUP BY c.customerid, customername
+ORDER BY lifetime_spending DESC
+LIMIT 10;
+```
+
+#### **Problem 13:** Calculate the average order value for each customer.
+```sql
+WITH customer_totals AS
+	(SELECT 
+		c.customerid,
+		CONCAT(c.firstname, ' ', c.lastname) AS customername,
+		COUNT(o.orderid) order_count,
+		SUM(totalamount) AS lifetime_spending
+	FROM
+		customers c
+			JOIN
+		orders o ON c.customerId = o.customerid
+	GROUP BY c.customerid
 )
-SELECT
-    store_name,
-    year,
-    last_year_sale,
-    current_year_sale,
-    ROUND((current_year_sale - last_year_sale)::numeric/last_year_sale::numeric * 100, 3) AS growth_ratio
-FROM growth_ratio
-WHERE last_year_sale IS NOT NULL AND year <> EXTRACT(YEAR FROM CURRENT_DATE);
+
+SELECT 
+	customerid, 
+	customername,
+	order_count, 
+	lifetime_spending,
+	lifetime_spending/ order_count AS avg_order_value
+from customer_totals;
+```
+
+#### **Problem 14:** List customers who have placed orders in more than one store.
+```sql
+SELECT 
+    c.customerid,
+    c.firstname,
+    c.lastname,
+    COUNT(DISTINCT o.storeid) AS stores_visited
+FROM
+    customers c
+        JOIN
+    orders o ON c.customerid = o.customerid
+GROUP BY c.customerid , c.firstname , c.lastname
+HAVING stores_visited > 1;
+```
+
+#### **Problem 15:** Calculate the percentage of customers who have placed only one order.
+```sql
+WITH customer_summary AS(
+	SELECT 
+		c.customerid,
+		COUNT(o.orderid) AS order_count
+	FROM
+		customers c
+			LEFT JOIN
+		orders o ON c.customerid = o.customerid
+	GROUP BY c.customerid
+	HAVING order_count = 1)
+
+    
+SELECT 
+	COUNT(customerid)*100/ (SELECT COUNT(customerid) FROM customers)
+	AS percent_one_time_orderers 
+FROM customer_summary;
+```
+
+#### **Problem 16:** Identify the top 3 revenue-generating products in each category.
+```sql
+WITH category_totals AS(	
+    SELECT 
+		c.categoryid,
+		c.categoryname,
+		p.productid,
+		p.productname,
+		SUM(o.totalamount) AS total_revenue,
+		rank() over(partition by c.CategoryID order by SUM(o.totalamount) desc) as rank_in_cat
+	FROM
+		products p
+			JOIN
+		order_details od ON p.productid = od.productid
+			JOIN
+		categories c ON p.categoryid = c.categoryid
+			JOIN
+		orders o ON o.orderid = od.orderid
+	GROUP BY p.productid
+	)
+
+SELECT * FROM category_totals 
+WHERE rank_in_cat <=3;
+```
+
+#### **Problem 17:** Find products that have never been sold.
+```sql
+SELECT 
+    p.productid,
+    p.productname,
+    COUNT(od.productid) AS order_count
+FROM
+    products p
+        LEFT JOIN
+    order_details od ON p.productid = od.productid
+GROUP BY p.productid , p.productname
+having order_count= 0;
+```
+
+#### **Problem 18:** Calculate total revenue generated per product.
+```sql
+SELECT 
+    p.productid,
+    p.productname,
+    SUM(od.quantity) AS quantity_sold,
+    ROUND(SUM(od.unitprice * od.quantity * (1 - od.discount / 100)),
+            2) AS total_product_revenue
+FROM
+    products p
+        JOIN
+    order_details od ON p.productid = od.productid
+GROUP BY p.productid , p.productname;
+```
+
+#### **Problem 19:** Determine the average quantity sold per order for each product.
+```sql
+SELECT 
+    od.productID,
+    COUNT(o.orderId) AS order_count,
+    SUM(od.quantity) AS total_units_sold,
+    ROUND(SUM(od.quantity) / COUNT(o.orderID), 2) AS avg_quantity_sold_per_order
+FROM
+    orders o
+        JOIN
+    order_details od ON o.orderID = od.orderID
+GROUP BY od.productID;
+```
+
+#### **Problem 20:**Identify products with total sales revenue greater than the average product revenue.
+```sql
+WITH total_revenue AS (
+	SELECT
+		productID,
+		round(sum(quantity * unitprice * (1-discount/100)), 2) AS product_revenue,
+		AVG(sum(quantity * unitprice * (1-discount/100))) OVER () AS avg_revenue
+	FROM order_details
+	GROUP BY productID
+    )
+    
+ SELECT
+	productID,
+    product_revenue,
+    avg_revenue
+FROM total_revenue
+WHERE product_revenue > avg_revenue;
+```
+
+#### **Problem 21:**Calculate total sales handled by each employee.
+```sql
+SELECT 
+    o.employeeID,
+    CONCAT(e.FirstName, ' ', e.LastName) AS employee_name,
+    SUM(o.totalamount) AS total_sales_handeled
+FROM
+    order_details od
+        JOIN
+    orders o ON od.orderID = o.orderID
+        JOIN
+    employees e ON o.employeeID = e.employeeID
+GROUP BY e.employeeID;
+```
+
+#### **Problem 22:**Identify the top 5 employees who generated the highest revenue.
+```sql
+SELECT 
+    o.employeeID,
+    CONCAT(e.FirstName, ' ', e.LastName) AS employee_name,
+    SUM(o.totalamount) AS total_sales_handeled
+FROM
+    order_details od
+        JOIN
+    orders o ON od.orderID = o.orderID
+        JOIN
+    employees e ON o.employeeID = e.employeeID
+GROUP BY e.employeeID
+ORDER BY SUM(o.totalamount) DESC
+LIMIT 5;
+```
+
+#### **Problem 23:**Determine the average order value handled by each employee.
+```sql
+SELECT 
+    e.employeeID,
+    CONCAT(e.FirstName, ' ', e.LastName) AS employee_name,
+    ROUND(AVG(o.totalamount), 2) AS avg_order_value_handled
+FROM
+    employees e
+        JOIN
+    orders o ON e.employeeID = o.employeeID
+GROUP BY e.employeeID;
+```
+
+#### **Problem 24:**Find employees who handled orders for more than 40 unique customers.
+```sql
+SELECT 
+    o.employeeID,
+    CONCAT(e.FirstName, ' ', e.LastName) AS employee_name,
+    COUNT(DISTINCT o.customerID) AS unique_customers
+FROM
+    employees e
+        JOIN
+    orders o ON e.employeeID = o.employeeID
+GROUP BY o.employeeID , employee_name
+HAVING unique_customers > 40;
+```
+
+#### **Problem 25:**Identify the employee with the highest total quantity of products sold.
+```sql
+WITH emp_units_sold AS(
+    SELECT 
+		o.employeeID,
+		CONCAT(e.FirstName, ' ', e.LastName) AS employee_name,
+		SUM(od.quantity) AS units_sold
+	FROM
+		employees e
+			JOIN
+		orders o ON e.employeeID = o.employeeID
+			JOIN
+		order_details od ON o.orderID = od.OrderID
+	GROUP BY o.employeeID
+)
+
+SELECT 
+	employeeID, 
+    employee_name, 
+    units_sold 
+FROM emp_units_sold
+WHERE units_sold = (SELECT max(units_sold) FROM emp_units_sold);
+```
+
+#### **Problem 26:**Calculate monthly revenue trends across all stores. 
+```sql
+SELECT 
+    YEAR(orderdate) AS sale_year,
+    MONTH(orderdate) AS sale_month,
+    SUM(totalamount) AS revenue
+FROM
+    orders
+GROUP BY sale_year , sale_month
+ORDER BY sale_year , sale_month;
+```
+
+#### **Problem 27:**Determine the store with the highest sales for each month. 
+```sql
+WITH monthly_totals AS(	
+    SELECT 
+		YEAR(o.orderdate) AS sale_year,
+		MONTH(o.orderdate) AS sale_month,
+		o.storeID,
+		s.storename,
+		SUM(o.totalamount) AS revenue,
+        RANK() OVER (PARTITION BY YEAR(o.orderdate), 
+			MONTH(o.orderdate)
+			ORDER BY SUM(o.totalamount) DESC) AS monthly_rank
+	FROM
+		orders o
+			JOIN
+		stores s ON o.storeID = s.storeID
+	GROUP BY sale_year , sale_month , o.storeID , s.storename
+)
+
+SELECT 
+	sale_year, 
+    sale_month, 
+    storeID, 
+    storename, 
+    revenue, 
+    monthly_rank
+FROM monthly_totals
+WHERE monthly_rank = 1;
+```
+
+#### **Problem 28:**Identify the top selling product each month. 
+```sql
+WITH monthly_sales_quantity AS(	
+    SELECT 
+		YEAR(o.orderdate) AS sale_year,
+		MONTH(o.orderdate) AS sale_month,
+		p.productID,
+		p.productname,
+		SUM(od.quantity) AS units_sold,
+		RANK() OVER(PARTITION BY YEAR(o.orderdate), MONTH(o.orderdate)
+		ORDER BY SUM(od.quantity) DESC) AS monthly_rank
+	FROM
+		orders o
+			JOIN
+		order_details od ON o.orderID = od.orderID
+			JOIN
+		products p ON od.productID = p.productID
+	GROUP BY sale_year , sale_month , p.productID , p.productname
+)
+
+SELECT 
+	sale_year, 
+    sale_month, 
+    productID, 
+    productname, 
+    units_sold, 
+    monthly_rank
+FROM monthly_sales_quantity
+WHERE monthly_rank = 1;
+```
+
+#### **Problem 29:**Calculate the daily average number of orders. 
+```sql
+WITH daily_order_count AS(	
+    SELECT 
+		orderdate, COUNT(*) AS daily_order
+	FROM
+		orders
+	GROUP BY orderdate
+)
+
+SELECT 
+	ROUND(AVG(daily_order), 2) AS avg_order_per_day
+FROM daily_order_count;
+```
+
+#### **Problem 30:**Find the month with the highest total revenue. 
+```sql
+WITH monthly_revenue AS(	
+    SELECT 
+		YEAR(orderdate) AS sale_year,
+		MONTH(orderdate) AS sale_month,
+		SUM(totalamount) AS revenue
+	FROM
+		orders
+	GROUP BY sale_year , sale_month
+)
+
+SELECT 
+	sale_year,
+    sale_month,
+    revenue
+FROM monthly_revenue
+WHERE revenue = (SELECT 
+                    MAX(revenue) 
+                    FROM 
+                    monthly_revenue
+);
 ```
 
 ## 👤 Author

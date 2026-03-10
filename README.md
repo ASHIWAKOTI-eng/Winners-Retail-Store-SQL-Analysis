@@ -1,4 +1,4 @@
-# Winners-Retail-Store-SQL-Analysis - SQL
+# Winners-Retail-Store-Analysis - SQL
 
 ---
 

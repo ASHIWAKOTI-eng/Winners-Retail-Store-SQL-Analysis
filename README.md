@@ -612,7 +612,7 @@ WHERE revenue = (SELECT
 
 **Abiskar Shiwakoti**
 
-Aspiring Data Analyst | SQL | Data Analytics
+Data Analyst | SQL | Data Analytics
 
 GitHub: https://github.com/ASHIWAKOTI-eng 
 LinkedIn: (https://www.linkedin.com/in/a-shiwakoti-b04702238/)

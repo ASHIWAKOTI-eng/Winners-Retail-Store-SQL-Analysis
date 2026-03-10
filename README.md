@@ -2,7 +2,9 @@
 
 ---
 
-# ![Winners Logo](https://github.com/ASHIWAKOTI-eng/Winners-Retail-Store-SQL-Analysis/blob/main/images/Winners-9-800x800.jpg)  
+# <p align="center">
+  <img src="images/Winners-9-800x800.jpg" width="600">
+</p>
 # Winners Retail Sales SQL Project  
 
 ## 📌 Project Overview
@@ -35,7 +37,7 @@ The database consists of the following tables:
 ### Entity Relationship Overview
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/ASHIWAKOTI-eng/Winners-Retail-Store-SQL-Analysis/main/images/ER%20Diagram.png" width="800">
+  <img src="images/er-diagram.png" width="800">
 </p>
 
 ---

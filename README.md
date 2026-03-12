@@ -15,6 +15,7 @@ The goal was to analyze the sales and operations of a retail store chain to iden
 - [Project Overview](#-project-overview)
 - [Database Schema](#-database-schema)
 - [Technologies Used](#%EF%B8%8F-technologies-used)
+- [Setup Instructions](#%EF%B8%8F-technologies-used)
 - [Business Questions & SQL Solutions](#-business-questions-solved)
   - [Customer Analytics](#customer-analytics)
   - [Product Analytics](#product-analytics)
@@ -33,13 +34,6 @@ The project covers:
 - Business analytics queries
 
 ---
-
-## Setup Instructions
-1. Download `Winners_Project_Schema.sql`.
-2. Run `Winners_Project_Schema.sql` to create tables.
-3. Download Datasets.
-4. Import CSVs via MySQL Workbench or `LOAD DATA INFILE`.
-5. Execute queries from `Winners_SQL_Project_Queries.sql`.
 
 ## 🧱 Database Schema
 
@@ -67,6 +61,15 @@ The database consists of the following tables:
 - MySQL Workbench
 - Excel (Data preparation)
 - Git & GitHub
+
+---
+
+## Setup Instructions
+1. Download `Winners_Project_Schema.sql`.
+2. Run `Winners_Project_Schema.sql` to create tables.
+3. Download Datasets.
+4. Import CSVs via MySQL Workbench or `LOAD DATA INFILE`.
+5. Execute queries from `Winners_SQL_Project_Queries.sql`.
 
 ---
 

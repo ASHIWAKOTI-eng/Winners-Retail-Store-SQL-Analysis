@@ -14,8 +14,8 @@ The goal was to analyze the sales and operations of a retail store chain to iden
 ## Table of Contents
 - [Project Overview](#-project-overview)
 - [Database Schema](#-database-schema)
-- [Technologies Used](#-technologies-used)
-- [Business Questions & SQL Solutions](#business-questions--sql-solutions)
+- [Technologies Used](#%EF%B8%8F-technologies-used)
+- [Business Questions & SQL Solutions](#-business-questions-solved)
   - [Customer Analytics](#customer-analytics)
   - [Product Analytics](#product-analytics)
   - [Employee Performance](#employee-performance)

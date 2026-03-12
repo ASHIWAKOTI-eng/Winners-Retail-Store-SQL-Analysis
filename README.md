@@ -101,14 +101,7 @@ The database consists of the following tables:
 
 ---
 
-## 📈 Example Insights
 
-- Identified top revenue-generating product categories
-- Measured employee sales performance
-- Analyzed customer purchasing behavior
-- Tracked seasonal revenue patterns
-
----
 
 ## Solving Real-World Business Problems with SQL
 
@@ -653,6 +646,15 @@ WHERE revenue = (SELECT
                     monthly_revenue
 );
 ```
+---
+## 📈 Key Insights
+
+- Identified top revenue-generating product categories
+- Measured employee sales performance
+- Analyzed customer purchasing behavior
+- Tracked seasonal revenue patterns
+
+---
 
 ## 👤 Author
 

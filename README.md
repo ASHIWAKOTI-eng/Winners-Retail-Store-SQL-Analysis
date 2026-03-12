@@ -12,9 +12,9 @@ This project demonstrates advanced SQL analytics using a simulated retail busine
 The goal was to analyze the sales and operations of a retail store chain to identify trends, high-performing products, top customers, and employee performance using SQL.
 
 ## Table of Contents
-- [Project Overview](#project-overview)
-- [Database Schema](#database-schema)
-- [Technologies Used](#technologies-used)
+- [Project Overview](#-project-overview)
+- [Database Schema](#-database-schema)
+- [Technologies Used](#-technologies-used)
 - [Business Questions & SQL Solutions](#business-questions--sql-solutions)
   - [Customer Analytics](#customer-analytics)
   - [Product Analytics](#product-analytics)

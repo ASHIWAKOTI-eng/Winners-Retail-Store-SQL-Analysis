@@ -34,6 +34,13 @@ The project covers:
 
 ---
 
+## Setup Instructions
+1. Download `Winners_Project_Schema.sql`.
+2. Run `Winners_Project_Schema.sql` to create tables.
+3. Download Datasets.
+4. Import CSVs via MySQL Workbench or `LOAD DATA INFILE`.
+5. Execute queries from `Winners_SQL_Project_Queries.sql`.
+
 ## 🧱 Database Schema
 
 The database consists of the following tables:

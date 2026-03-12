@@ -1,0 +1,81 @@
+ProductID,ProductName,CategoryID,Price,StockQuantity,CreatedDate
+1,Yoga Pants,2,86.49,438,2025-12-27
+2,Coffee Maker,3,500.43,70,2024-08-06
+3,Bluetooth Speaker,1,571.26,73,2024-07-26
+4,Jeans,2,54.13,236,2026-01-20
+5,Winter Gloves,2,267.75,157,2024-09-01
+6,Graphics Tablet,1,701.73,486,2024-07-17
+7,Standing Desk,5,276.79,194,2024-03-23
+8,Soccer Ball,4,266.26,84,2025-11-08
+9,Mechanical Keyboard,5,156.82,360,2025-10-04
+10,Webcam,1,44.89,89,2024-01-16
+11,Tennis Racket,4,452.04,477,2025-12-28
+12,Smartphone,1,431.95,76,2026-01-05
+13,Desk Lamp,3,893.86,466,2025-05-21
+14,Camping Tent,4,30.08,482,2025-03-10
+15,Men's T-Shirt,2,114.22,70,2025-07-28
+16,Vacuum Cleaner,3,667.14,417,2025-02-01
+17,Blender,3,739.16,573,2025-05-27
+18,Ballpoint Pens Pack,5,617.62,399,2025-07-15
+19,Tablet,1,166.83,247,2024-05-03
+20,Baseball Cap,2,441.62,196,2025-06-12
+21,Sports Shorts,2,293.56,138,2024-03-31
+22,External Hard Drive,1,65.4,78,2025-08-07
+23,Office Chair,5,107.84,63,2025-11-24
+24,Wireless Mouse,1,144.63,113,2025-03-01
+25,Yoga Mat,4,119.33,509,2024-11-16
+26,Noise Cancelling Headphones,1,605.83,135,2024-01-03
+27,USB-C Charger,1,617.27,553,2024-08-17
+28,Laptop Backpack,5,677.05,152,2024-12-19
+29,Sneakers,2,594.97,368,2025-09-30
+30,Women's Jacket,2,712.33,350,2025-12-10
+31,Notebook,5,187.93,514,2025-03-09
+32,Gaming Keyboard,1,713.2,493,2025-06-16
+33,Basketball,4,876.29,534,2025-08-16
+34,Running Shoes,2,34.91,227,2025-05-13
+35,Wireless Earbuds,1,189.99,320,2025-04-15
+36,Portable Power Bank,1,49.99,180,2024-09-22
+37,Fleece Hoodie,2,79.99,210,2025-11-10
+38,Air Purifier,3,249.99,95,2026-02-05
+39,Golf Clubs Set,4,399.99,45,2025-07-18
+40,Sticky Notes Pack,5,12.99,600,2024-08-30
+41,4K Monitor,1,329.99,120,2025-03-12
+42,Leather Wallet,2,59.99,280,2025-10-25
+43,Toaster Oven,3,89.99,150,2024-12-08
+44,Swim Goggles,4,24.99,400,2025-06-14
+45,Planner Notebook,5,19.99,350,2026-01-03
+46,SSD 1TB,1,109.99,200,2025-05-19
+47,Cargo Pants,2,69.99,260,2024-08-27
+48,Rice Cooker,3,79.99,130,2025-04-16
+49,Skateboard,4,149.99,80,2025-11-21
+50,Highlighter Set,5,9.99,500,2024-07-07
+51,Action Camera,1,299.99,65,2025-10-09
+52,Sunglasses,2,89.99,170,2026-06-30
+53,Electric Toothbrush,3,59.99,220,2024-09-11
+54,Football Boots,4,119.99,90,2025-02-04
+55,Calculator,5,29.99,300,2025-12-18
+56,Smart Plug,1,24.99,450,2025-03-23
+57,Track Pants,2,54.99,310,2025-08-06
+58,Sandwich Maker,3,44.99,140,2026-01-29
+59,Rollerblades,4,179.99,55,2024-10-17
+60,File Folders Set,5,14.99,420,2025-04-02
+61,Drone with Camera,1,399.99,70,2025-07-20
+62,Polo Shirt,2,39.99,290,2024-11-13
+63,Hair Dryer,3,69.99,160,2025-05-25
+64,Volleyball,4,34.99,250,2024-09-08
+65,Whiteboard,5,79.99,110,2026-03-31
+66,Portable SSD,1,149.99,95,2025-02-14
+67,Denim Jacket,2,99.99,180,2025-12-19
+68,Slow Cooker,3,89.99,125,2025-06-10
+69,Badminton Set,4,59.99,200,2024-08-27
+70,Printer Paper Pack,5,24.99,380,2025-10-05
+71,Fitness Smartwatch,1,199.99,140,2025-04-16
+72,Beanie Hat,2,19.99,320,2026-01-22
+73,Mixer Grinder,3,129.99,100,2025-07-09
+74,Hiking Poles,4,79.99,150,2024-11-03
+75,Desk Calendar,5,12.99,450,2025-02-28
+76,Bluetooth Mouse,1,34.99,280,2025-05-11
+77,Leggings,2,44.99,260,2025-09-18
+78,Waffle Maker,3,54.99,130,2025-12-04
+79,Jump Rope,4,19.99,400,2025-03-15
+80,Sticky Note Cube,5,8.99,550,2024-06-20

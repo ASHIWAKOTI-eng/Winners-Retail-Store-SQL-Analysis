@@ -20,8 +20,8 @@ The goal was to analyze the sales and operations of a retail store chain to iden
   - [Product Analytics](#product-analytics)
   - [Employee Performance](#employee-performance)
   - [Sales Trends](#sales-trends)
-- [Key Insights](#key-insights)
-- [Author](#author)
+- [Key Insights](#-key-insights)
+- [Author](#-author)
 
 The project covers:
 

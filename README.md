@@ -119,47 +119,47 @@ The database consists of the following tables:
 ```sql
 SELECT 
     o.OrderID,
-    CONCAT(c.FirstName, ' ', c.LastName) AS CustomerName,
+    CONCAT(c.firstname, ' ', c.lastname) AS customername,
     s.StoreName,
-    CONCAT(e.FirstName, ' ', e.LastName) AS EmployeeName
+    CONCAT(e.firstname, ' ', e.lastname) AS employeename
 FROM
     orders o
         JOIN
-    customers c ON o.CustomerID = c.CustomerID
+    customers c ON o.customerID = c.customerID
         JOIN
-    employees e ON o.EmployeeID = e.EmployeeID
+    employees e ON o.employeeID = e.employeeID
         JOIN
-    stores s ON o.StoreID = s.StoreID;
+    stores s ON o.storeID = s.storeID;
 ```
 
 #### **Problem 2:** Show each product sold along with its category and the total quantity sold.
 #### 👉 Purpose: Measure how much each product sells and understand performance by category.
 ```sql
 SELECT 
-    p.ProductName,
-    p.CategoryID,
-    SUM(od.Quantity) AS Total_Quantity_sold,
-    c.CategoryName
+    p.productname,
+    p.categoryID,
+    SUM(od.quantity) AS Total_Quantity_sold,
+    c.categoryname
 FROM
     order_details od
         JOIN
-    products p ON od.ProductID = p.ProductID
+    products p ON od.productID = p.productID
         JOIN
-    categories c ON p.CategoryID = c.CategoryID
-GROUP BY p.ProductID;
+    categories c ON p.categoryID = c.categoryID
+GROUP BY p.productID;
 ```
 
 #### **Problem 3:** List all customers who have placed at least one order, showing their orders and total spent.
 #### 👉 Purpose: Identify customer value by calculating how much each customer has spent overall.
 ```sql
 SELECT 
-    o.CustomerID,
-    CONCAT(c.FirstName, ' ', c.LastName) AS CustomerName,
-    SUM(o.TotalAmount) AS Total_spent
+    o.customerID,
+    CONCAT(c.firstname, ' ', c.lastname) AS customername,
+    SUM(o.totalamount) AS Total_spent
 FROM
     orders o
         JOIN
-    customers c ON o.CustomerID = c.CustomerID
+    customers c ON o.customerID = c.customerID
 GROUP BY c.CustomerID;
 ```
 
@@ -167,23 +167,23 @@ GROUP BY c.CustomerID;
 #### 👉 Purpose: Detect operational inconsistencies or cross-store servicing behavior.
 ```sql
 SELECT 
-    o.OrderID,
-    o.EmployeeID,
-    o.StoreID AS Order_Store,
-    e.StoreID AS Employee_store
+    o.orderID,
+    o.employeeID,
+    o.storeID AS order_store,
+    e.storeID AS employee_store
 FROM
     orders o
         JOIN
-    employees e ON o.EmployeeID = e.EmployeeID
+    employees e ON o.employeeID = e.employeeID
 WHERE
-    o.storeID != e.StoreID;
+    o.storeID != e.storeID;
 ```
 
 #### **Problem 5:** Show the top 10 customers by total spending across all orders.
 #### 👉 Purpose: Find high-value customers for loyalty programs and targeted marketing.
 ```sql
 SELECT 
-    CONCAT(c.FirstName, ' ', c.LastName) AS CustomerName,
+    CONCAT(c.firstname, ' ', c.lastname) AS customername,
     o.customerID,
     SUM(o.totalamount) AS total_spent
 FROM
@@ -221,7 +221,7 @@ GROUP BY storeID;
 ```sql
 SELECT 
     c.categoryID,
-    CategoryName,
+    categoryname,
     SUM(quantity * unitprice) AS category_revenue
 FROM
     categories c
@@ -236,15 +236,15 @@ GROUP BY c.categoryID , categoryname;
 #### 👉 Purpose: Find products with highest demand for inventory planning.
 ```sql
 SELECT 
-    p.productid,
+    p.productID,
     p.productname,
-    p.categoryid,
+    p.categoryID,
     SUM(quantity) AS total_quantity
 FROM
     products p
         JOIN
-    order_details od ON p.productid = od.productid
-GROUP BY p.productid , p.productname , p.categoryid
+    order_details od ON p.productID = od.productID
+GROUP BY p.productID , p.productname , p.categoryID
 ORDER BY total_quantity DESC LIMIT 5;
 ```
 
@@ -252,12 +252,12 @@ ORDER BY total_quantity DESC LIMIT 5;
 #### 👉 Purpose: Analyze discount strategies and pricing behavior.
 ```sql
 SELECT 
-    productid,
+    productID,
     SUM(quantity) AS total_product_sold,
     sum(discount*quantity)/sum(quantity) AS avg_discount_per_product
 FROM
     order_details
-GROUP BY productid;
+GROUP BY productID;
 ```
 
 #### **Problem 11:** Identify the top 3 revenue-generating products in each category.
@@ -265,21 +265,21 @@ GROUP BY productid;
 ```sql
 WITH category_totals AS(	
     SELECT 
-		c.categoryid,
+		c.categoryID,
 		c.categoryname,
-		p.productid,
+		p.productID,
 		p.productname,
 		SUM(o.totalamount) AS total_revenue,
-		rank() over(partition by c.CategoryID order by SUM(o.totalamount) desc) as rank_in_cat
+		rank() over(partition by c.categoryID order by SUM(o.totalamount) desc) as rank_in_cat
 	FROM
 		products p
 			JOIN
-		order_details od ON p.productid = od.productid
+		order_details od ON p.productID = od.productID
 			JOIN
-		categories c ON p.categoryid = c.categoryid
+		categories c ON p.categoryID = c.categoryID
 			JOIN
-		orders o ON o.orderid = od.orderid
-	GROUP BY p.productid
+		orders o ON o.orderID = od.orderID
+	GROUP BY p.productID
 	)
 
 SELECT * FROM category_totals 
@@ -290,14 +290,14 @@ WHERE rank_in_cat <=3;
 #### 👉 Purpose:
 ```sql
 SELECT 
-    p.productid,
+    p.productID,
     p.productname,
-    COUNT(od.productid) AS order_count
+    COUNT(od.productID) AS order_count
 FROM
     products p
         LEFT JOIN
-    order_details od ON p.productid = od.productid
-GROUP BY p.productid , p.productname
+    order_details od ON p.productID = od.productID
+GROUP BY p.productID , p.productname
 having order_count= 0;
 ```
 
@@ -305,7 +305,7 @@ having order_count= 0;
 #### 👉 Purpose:
 ```sql
 SELECT 
-    p.productid,
+    p.productID,
     p.productname,
     SUM(od.quantity) AS quantity_sold,
     ROUND(SUM(od.unitprice * od.quantity * (1 - od.discount / 100)),
@@ -313,8 +313,8 @@ SELECT
 FROM
     products p
         JOIN
-    order_details od ON p.productid = od.productid
-GROUP BY p.productid , p.productname;
+    order_details od ON p.productID = od.productID
+GROUP BY p.productID , p.productname;
 ```
 
 #### **Problem 14:** Determine the average quantity sold per order for each product.
@@ -322,7 +322,7 @@ GROUP BY p.productid , p.productname;
 ```sql
 SELECT 
     od.productID,
-    COUNT(o.orderId) AS order_count,
+    COUNT(o.orderID) AS order_count,
     SUM(od.quantity) AS total_units_sold,
     ROUND(SUM(od.quantity) / COUNT(o.orderID), 2) AS avg_quantity_sold_per_order
 FROM
@@ -358,14 +358,14 @@ WHERE product_revenue > avg_revenue;
 #### 👉 Purpose: Identify repeat customers and measure customer loyalty.
 ```sql
 SELECT 
-    c.customerid,
+    c.customerID,
     CONCAT(c.firstname, ' ', c.lastname) AS customername,
-    COUNT(o.orderid) AS order_count
+    COUNT(o.orderID) AS order_count
 FROM
     orders o
         JOIN
-    customers c ON o.customerid = c.customerid
-GROUP BY c.customerid , customername
+    customers c ON o.customerID = c.customerID
+GROUP BY c.customerID , customername
 HAVING order_count > 5;
 ```
 
@@ -373,15 +373,15 @@ HAVING order_count > 5;
 #### 👉 Purpose: Recognize customers contributing the most long-term revenue.
 ```sql
 SELECT 
-    c.customerid,
+    c.customerID,
     CONCAT(c.firstname, ' ', c.lastname) AS customername,
-    COUNT(o.orderid) order_count,
+    COUNT(o.orderID) order_count,
     SUM(totalamount) AS lifetime_spending
 FROM
     customers c
         JOIN
-    orders o ON c.customerId = o.customerid
-GROUP BY c.customerid, customername
+    orders o ON c.customerID = o.customerID
+GROUP BY c.customerID, customername
 ORDER BY lifetime_spending DESC
 LIMIT 10;
 ```
@@ -391,19 +391,19 @@ LIMIT 10;
 ```sql
 WITH customer_totals AS
 	(SELECT 
-		c.customerid,
+		c.customerID,
 		CONCAT(c.firstname, ' ', c.lastname) AS customername,
-		COUNT(o.orderid) order_count,
+		COUNT(o.orderID) order_count,
 		SUM(totalamount) AS lifetime_spending
 	FROM
 		customers c
 			JOIN
-		orders o ON c.customerId = o.customerid
-	GROUP BY c.customerid
+		orders o ON c.customerID = o.customerID
+	GROUP BY c.customerID
 )
 
 SELECT 
-	customerid, 
+	customerID, 
 	customername,
 	order_count, 
 	lifetime_spending,
@@ -415,15 +415,15 @@ from customer_totals;
 #### 👉 Purpose: Identify cross-store shoppers, indicating strong brand engagement.
 ```sql
 SELECT 
-    c.customerid,
+    c.customerID,
     c.firstname,
     c.lastname,
-    COUNT(DISTINCT o.storeid) AS stores_visited
+    COUNT(DISTINCT o.storeID) AS stores_visited
 FROM
     customers c
         JOIN
-    orders o ON c.customerid = o.customerid
-GROUP BY c.customerid , c.firstname , c.lastname
+    orders o ON c.customerID = o.customerID
+GROUP BY c.customerID , c.firstname , c.lastname
 HAVING stores_visited > 1;
 ```
 
@@ -432,18 +432,18 @@ HAVING stores_visited > 1;
 ```sql
 WITH customer_summary AS(
 	SELECT 
-		c.customerid,
-		COUNT(o.orderid) AS order_count
+		c.customerID,
+		COUNT(o.orderID) AS order_count
 	FROM
 		customers c
 			LEFT JOIN
-		orders o ON c.customerid = o.customerid
-	GROUP BY c.customerid
+		orders o ON c.customerID = o.customerID
+	GROUP BY c.customerID
 	HAVING order_count = 1)
 
     
 SELECT 
-	COUNT(customerid)*100/ (SELECT COUNT(customerid) FROM customers)
+	COUNT(customerID)*100/ (SELECT COUNT(customerID) FROM customers)
 	AS percent_one_time_orderers 
 FROM customer_summary;
 ```
@@ -455,7 +455,7 @@ FROM customer_summary;
 ```sql
 SELECT 
     o.employeeID,
-    CONCAT(e.FirstName, ' ', e.LastName) AS employee_name,
+    CONCAT(e.firstname, ' ', e.lastname) AS employee_name,
     SUM(o.totalamount) AS total_sales_handeled
 FROM
     order_details od
@@ -471,7 +471,7 @@ GROUP BY e.employeeID;
 ```sql
 SELECT 
     o.employeeID,
-    CONCAT(e.FirstName, ' ', e.LastName) AS employee_name,
+    CONCAT(e.firstname, ' ', e.lastname) AS employee_name,
     SUM(o.totalamount) AS total_sales_handeled
 FROM
     order_details od
@@ -489,7 +489,7 @@ LIMIT 5;
 ```sql
 SELECT 
     e.employeeID,
-    CONCAT(e.FirstName, ' ', e.LastName) AS employee_name,
+    CONCAT(e.firstname, ' ', e.lastname) AS employee_name,
     ROUND(AVG(o.totalamount), 2) AS avg_order_value_handled
 FROM
     employees e
@@ -503,7 +503,7 @@ GROUP BY e.employeeID;
 ```sql
 SELECT 
     o.employeeID,
-    CONCAT(e.FirstName, ' ', e.LastName) AS employee_name,
+    CONCAT(e.firstname, ' ', e.lastname) AS employee_name,
     COUNT(DISTINCT o.customerID) AS unique_customers
 FROM
     employees e
@@ -519,7 +519,7 @@ HAVING unique_customers > 40;
 WITH emp_units_sold AS(
     SELECT 
 		o.employeeID,
-		CONCAT(e.FirstName, ' ', e.LastName) AS employee_name,
+		CONCAT(e.firstname, ' ', e.lastname) AS employee_name,
 		SUM(od.quantity) AS units_sold
 	FROM
 		employees e
